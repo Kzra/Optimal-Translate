@@ -1,4 +1,4 @@
-#!C:/Users/Ezra/Anaconda3/python
+#!usr/bin/env python3
 
 def transcribe(sequence,rev): #turns sequence into a list, cycles through letters and produces reverse complement, rejoins list
  if sequence.find("U") == -1:  #if you have dna 
