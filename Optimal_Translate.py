@@ -1,4 +1,4 @@
-#!usr/bin/env python3
+#!C:/Users/Ezra/Anaconda3/python
 
 def transcribe(sequence,rev): #turns sequence into a list, cycles through letters and produces reverse complement, rejoins list
  if sequence.find("U") == -1:  #if you have dna 
@@ -141,25 +141,39 @@ parser = argparse.ArgumentParser()
 parser.add_argument("DNA_fasta_file", help="[Input]: list of DNA sequences to be translated")
 parser.add_argument("output_fasta_file", help ="[Output]: list of translated sequences")  
 args = parser.parse_args()
-
+ln = 1*10**7
 with open(args.DNA_fasta_file, "rt") as data: #with open automatically calls file close
     
+
     text = data.read()
     sp = ([i for i, x in enumerate(text) if x == ">"]) #> demarks new sequences
     sequence_name = ['Blank']*len(sp)
     sequence = ['Blank']*len(sp)
-    for ind in range(len(sp)-1):
-        query = (text[sp[ind]:sp[ind+1]])
-        sequence_name[ind] = query.splitlines()[0]
-        sequence[ind] = query.splitlines()[1:len(sequence)] #obviously there are fewer lines than the len(sequence) but this works
-        sequence[ind] = sequence[ind][0] #removes double list
-    
-        
-    query = (text[sp[len(sp)-1]:len(text)])
-    sequence_name[len(sp)-1] = query.splitlines()[0]
-    sequence[len(sp)-1] = query.splitlines()[1:len(sequence)]
-    sequence[len(sp)-1] = sequence[len(sp)-1][0]
+    if sp == [0]: 
+        query = text
+        #print(query)
+        sequence_name = query.splitlines()[0]
+        #print(sequence_name)
+        sequence = query.splitlines()[1:ln] #obviously there are fewer lines than the ln but this works
+        #sequence = sequence[0] #removes double list
+        #print(sequence)
 
+   ##if there is more than one
+    else:
+        for ind in range(0,len(sp)-1):
+            query = (text[sp[ind]:sp[ind+1]])
+            #print(query)
+            sequence_name[ind] = query.splitlines()[0]
+            #print(sequence_name)
+            sequence[ind] = query.splitlines()[1:ln] #obviously there are fewer lines than the len(sequence) but this works
+            #print(sequence)
+            sequence[ind] = sequence[ind][0] #removes double list
+   
+        
+        query = (text[sp[len(sp)-1]:len(text)]) #deal with the last sequence outside of the for loop
+        sequence_name[len(sp)-1] = query.splitlines()[0]
+        sequence[len(sp)-1] = query.splitlines()[1:len(sequence)]
+        sequence[len(sp)-1] = sequence[len(sp)-1][0]
 optimal_translation = ['Blank']*len(sp)
 reading_frame = ['Blank']*len(sp)
 count = range(0,len(optimal_translation))
