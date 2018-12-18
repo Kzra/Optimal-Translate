@@ -6,7 +6,7 @@ _Includes python script and geneious plugin extension._
 
 **Usage**: 
 ```shell 
-python simple_circularise.py [input.fasta] [output.fasta] 
+python optimal_translate.py [input.fasta] [output.fasta] 
 ```
 Output.fasta will contain each sequence transated in the frame which produces the least number of stop codons. The frame will be appended to the sequence name. In cases where there are multiple optimum frames, all frames will be written to the output file. 
 
